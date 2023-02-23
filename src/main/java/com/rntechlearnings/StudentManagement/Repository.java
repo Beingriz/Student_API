@@ -18,5 +18,19 @@ public class Repository {
     public void deleteStudent(int id){
         db.remove(id);
     }
+     public void update(Student student){
+        db.put(student.getAdmissionNo(), student);
+     }
+
+     public Student search(String name){
+        int id = 0;
+         for (Student s: db.values()) {
+             if(s.getName().equals(name)){
+                 id = s.getAdmissionNo();
+                 break;
+             }
+         }
+         return db.get(id);
+     }
 
 }

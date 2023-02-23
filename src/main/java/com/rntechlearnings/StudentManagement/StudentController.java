@@ -5,8 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class StudentController {
@@ -31,22 +29,16 @@ public class StudentController {
 
 //    Updating Student Details by Id
     @PutMapping("/update")
-    String updateStudent(@RequestBody Student studnet ){
-        db.put(studnet.getAdmissionNo(),studnet);
-        return "Student Details Updated";
+    ResponseEntity updateStudent(@RequestBody Student studnet ){
+        service.updateStudent(studnet);
+        return new ResponseEntity("Student Details Updated", HttpStatus.ACCEPTED);
     }
 
 
     // Getting Student Details by Name
     @GetMapping("/search/{name}")
-    Student getDetails(@PathVariable("name") String name){
-       int id=0;
-        for (Student s: db.values()) {
-            if(s.getName().equals(name)){
-                id = s.getAdmissionNo();
-                break;
-            }
-        }
-      return db.get(id);
+    ResponseEntity getDetails(@PathVariable("name") String name){
+     return new ResponseEntity<>(service.searchStudent(name), HttpStatus.FOUND);
+
     }
 }

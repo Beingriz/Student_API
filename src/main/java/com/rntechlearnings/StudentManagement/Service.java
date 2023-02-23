@@ -19,4 +19,11 @@ public class Service {
     public void deleteStudent(int id){
         repository.deleteStudent(id);
     }
+
+    public void updateStudent(Student student){
+        repository.update(student);
+    }
+    public Student searchStudent(String name) {
+       return  repository.search(name);
+    }
 }
